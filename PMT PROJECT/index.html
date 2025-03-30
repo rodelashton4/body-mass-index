@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Health Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS will be embedded here for this example */
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #3aa8d8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .toggle-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .toggle-btn {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .toggle-btn input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        .bouncing-toggle {
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        .toggle-label {
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        /* Calculator Page Styles */
+        .calculator-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .underweight {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .normal {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .overweight {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .obese {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .ai-tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            display: none;
+        }
+
+        /* Health & Fitness Page */
+        .category-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .exercise-card, .meal-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Contact Page */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Download Page */
+        .download-card {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BMI<span>Calculator</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculator.html">BMI Calculator</a></li>
+                <li><a href="health-tips.html">Health Tips</a></li>
+                <li><a href="fitness.html">Fitness</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="download.html">Download App</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white;">
+            <h1 style="color: white;">Understand Your BMI for Better Health</h1>
+            <p>Body Mass Index (BMI) is a simple calculation using a person's height and weight. It can help determine whether you're at a healthy weight for your height.</p>
+            <a href="calculator.html" class="btn btn-accent">Calculate Your BMI Now</a>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>What is BMI?</h3>
+                <p>BMI is a measurement that assesses your weight in relation to your height. It's a useful screening tool to identify potential weight problems.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Why Track BMI?</h3>
+                <p>Monitoring your BMI helps you understand if you're at risk for weight-related health issues like diabetes, heart disease, and more.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Understanding Results</h3>
+                <p>BMI categories range from underweight to obese. Learn what your number means and how to maintain a healthy weight.</p>
+            </div>
+        </section>
+
+    <script>
+        // Bouncing toggle animation
+        const toggleBtn = document.querySelector('.toggle-btn');
+        
+        toggleBtn.addEventListener('mouseover', () => {
+            toggleBtn.classList.add('bouncing-toggle');
+        });
+        
+        toggleBtn.addEventListener('mouseout', () => {
+            toggleBtn.classList.remove('bouncing-toggle');
+        });
+        
+        // Unit toggle functionality
+        const unitToggle = document.getElementById('unitToggle');
+        unitToggle.addEventListener('change', function() {
+            if(this.checked) {
+                document.querySelectorAll('.toggle-label')[0].textContent = 'Imperial';
+                document.querySelectorAll('.toggle-label')[1].textContent = 'Metric';
+            } else {
+                document.querySelectorAll('.toggle-label')[0].textContent = 'Metric';
+                document.querySelectorAll('.toggle-label')[1].textContent = 'Imperial';
+            }
+        });
+    </script>
+</body>
+</html>
+
+<section class="bmi-scale">
+    <h2>BMI Categories</h2>
+    <div class="scale-container">
+        <div class="scale-segment underweight">
+            <span>Underweight<br>&lt; 18.5</span>
+        </div>
+        <div class="scale-segment normal">
+            <span>Normal<br>18.5 - 24.9</span>
+        </div>
+        <div class="scale-segment overweight">
+            <span>Overweight<br>25 - 29.9</span>
+        </div>
+        <div class="scale-segment obese">
+            <span>Obese<br>30+</span>
+        </div>
+    </div>
+</section>
+<section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-container">
+        <button class="testimonial-arrow prev" aria-label="Previous testimonial">&#10094;</button>
+        
+        <div class="testimonial-slides">
+            <div class="testimonial active">
+                <p>"This BMI calculator helped me understand my health better and motivated me to make positive changes!"</p>
+                <div class="user">- Sarah K.</div>
+            </div>
+            <div class="testimonial">
+                <p>"Simple to use and very informative. The health tips section is particularly helpful."</p>
+                <div class="user">- Michael T.</div>
+            </div>
+            <div class="testimonial">
+                <p>"Tracking my BMI over time helped me see my progress in a measurable way."</p>
+                <div class="user">- David R.</div>
+            </div>
+        </div>
+        
+        <button class="testimonial-arrow next" aria-label="Next testimonial">&#10095;</button>
+        
+        <div class="testimonial-nav">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</section>
+
+<style>
+    .testimonials {
+        padding: 40px 0;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+    
+    .testimonial-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .testimonial-slides {
+        position: relative;
+        min-height: 200px;
+        overflow: hidden;
+    }
+    
+    .testimonial {
+        display: none;
+        padding: 20px;
+        transition: all 0.5s ease;
+    }
+    
+    .testimonial.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .testimonial p {
+        font-size: 1.2rem;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+    
+    .user {
+        font-weight: bold;
+        color: #3498db;
+    }
+    
+    .testimonial-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(52, 152, 219, 0.3);
+        color: white;
+        border: none;
+        font-size: 24px;
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+    }
+    
+    .testimonial-arrow:hover {
+        background: rgba(52, 152, 219, 0.8);
+    }
+    
+    .prev {
+        left: 10px;
+    }
+    
+    .next {
+        right: 10px;
+    }
+    
+    .testimonial-nav {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #bbb;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .dot.active {
+        background-color: #3498db;
+    }
+    
+    @keyframes fadeIn {
+        from {opacity: 0.4;}
+        to {opacity: 1;}
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentIndex = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+        
+        function nextTestimonial() {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            showTestimonial(currentIndex);
+        }
+        
+        function prevTestimonial() {
+            currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentIndex);
+        }
+        
+        // Arrow navigation
+        nextBtn.addEventListener('click', nextTestimonial);
+        prevBtn.addEventListener('click', prevTestimonial);
+        
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showTestimonial(index));
+        });
+        
+        // Auto-rotate every 5 seconds
+        let interval = setInterval(nextTestimonial, 5000);
+        
+        // Pause on hover
+        const container = document.querySelector('.testimonial-container');
+        container.addEventListener('mouseenter', () => clearInterval(interval));
+        container.addEventListener('mouseleave', () => {
+            interval = setInterval(nextTestimonial, 5000);
+        });
+    });
+</script>
+
+<section class="stats">
+    <div class="stat-item">
+        <div class="stat-number" data-target="10000">10</div>
+        <div class="stat-label">Users Helped</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-target="95">82</div>
+        <div class="stat-label">Accuracy Rate</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-target="23">19</div>
+        <div class="stat-label">Health Tips</div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>BMI Calculator</h3>
+            <p>Helping you understand and maintain a healthy weight through BMI tracking and personalized health recommendations.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculator.html">BMI Calculator</a></li>
+                <li><a href="health-tips.html">Health Tips</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="fitness.html">Fitness Guide</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="download.html">Download App</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2025 BMI Calculator. All rights reserved.
+    </div>
+</footer>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips | BMI Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Enhanced styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #3aa8d8);
+            border-radius: 2px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--accent);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-card h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .feature-card ul {
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .feature-card li {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            position: relative;
+            padding-left: 2rem;
+            color: #555;
+        }
+        
+        .feature-card li:before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .feature-card li strong {
+            color: #2c3e50;
+        }
+        
+        .pdf-container {
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .pdf-toggle {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #3aa8d8);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(58, 168, 216, 0.3);
+            animation: bounce 1s infinite alternate;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+        }
+        
+        .pdf-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(58, 168, 216, 0.4);
+            background: linear-gradient(135deg, #3aa8d8, var(--accent));
+        }
+        
+        .pdf-embed {
+            margin: 3rem auto;
+            display: none;
+            height: 700px;
+            width: 90%;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Additional tips cards */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tip-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tip-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tip-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .tip-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BMI<span>Tracker</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculator.html">BMI Calculator</a></li>
+                <li><a href="health-tips.html" class="active">Health Tips</a></li>
+                <li><a href="fitness.html">Fitness</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="download.html">Download App</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="fade-in">BMI Health Tips & Information</h1>
+        
+        <div class="feature-card fade-in" style="animation-delay: 0.2s">
+            <h2>Understanding Your BMI Results</h2>
+            <p>Your Body Mass Index (BMI) is a useful indicator of whether you're at a healthy weight for your height. Here's what the different BMI categories mean:</p>
+            
+            <ul>
+                <li><strong>Underweight (BMI less than 18.5):</strong> You may need to gain weight for optimal health. Consult with a healthcare provider to develop a healthy weight gain plan.</li>
+                <li><strong>Normal weight (BMI 18.5-24.9):</strong> Your weight is in a healthy range for your height. Maintain your weight through balanced nutrition and regular physical activity.</li>
+                <li><strong>Overweight (BMI 25-29.9):</strong> You may be at increased risk for certain health conditions. Consider lifestyle changes to improve your health.</li>
+                <li><strong>Obese (BMI 30 or greater):</strong> You may be at higher risk for serious health problems. A healthcare provider can help you develop a weight management plan.</li>
+            </ul>
+            
+            <p>Remember that BMI is just one indicator of health. Other factors like muscle mass, body composition, and overall lifestyle also play important roles in your wellbeing.</p>
+        </div>
+        
+        <div class="tips-grid">
+            <div class="tip-card fade-in" style="animation-delay: 0.3s">
+                <i class="fas fa-utensils"></i>
+                <h3>Healthy Eating</h3>
+                <p>Focus on whole foods like fruits, vegetables, lean proteins, and whole grains. Limit processed foods and added sugars for better health.</p>
+            </div>
+            
+            <div class="tip-card fade-in" style="animation-delay: 0.4s">
+                <i class="fas fa-running"></i>
+                <h3>Regular Exercise</h3>
+                <p>Aim for at least 150 minutes of moderate exercise per week. Include both cardio and strength training for optimal results.</p>
+            </div>
+            
+            <div class="tip-card fade-in" style="animation-delay: 0.5s">
+                <i class="fas fa-glass-cheers"></i>
+                <h3>Hydration</h3>
+                <p>Drink plenty of water throughout the day. Proper hydration supports metabolism and helps control hunger.</p>
+            </div>
+            
+            <div class="tip-card fade-in" style="animation-delay: 0.6s">
+                <i class="fas fa-moon"></i>
+                <h3>Quality Sleep</h3>
+                <p>Get 7-9 hours of quality sleep each night. Poor sleep can affect hormones that regulate hunger and metabolism.</p>
+            </div>
+        </div>
+        
+        <div class="pdf-container fade-in" style="animation-delay: 0.7s">
+            <div class="pdf-toggle" id="pdfToggle">
+                <i class="fas fa-file-pdf"></i> Read More (Download PDF Guide)
+            </div>
+            <iframe id="pdfEmbed" class="pdf-embed" src="BMI-Handout.pdf"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script>
+        // PDF toggle functionality
+        const pdfToggle = document.getElementById('pdfToggle');
+        const pdfEmbed = document.getElementById('pdfEmbed');
+        
+        pdfToggle.addEventListener('click', function() {
+            if (pdfEmbed.style.display === 'block') {
+                pdfEmbed.style.display = 'none';
+                pdfToggle.innerHTML = '<i class="fas fa-file-pdf"></i> Read More (Download PDF Guide)';
+            } else {
+                pdfEmbed.style.display = 'block';
+                pdfToggle.innerHTML = '<i class="fas fa-times"></i> Hide PDF';
+                
+                // Add more bounce effect when clicked
+                pdfToggle.style.animation = 'bounce 0.5s 3';
+                setTimeout(() => {
+                    pdfToggle.style.animation = 'bounce 1s infinite alternate';
+                }, 1500);
+            }
+        });
+        
+        // Animate elements as they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                fadeObserver.observe(el);
+            });
+            
+            // Make the toggle button bounce continuously
+            setInterval(() => {
+                pdfToggle.style.animation = 'none';
+                setTimeout(() => {
+                    pdfToggle.style.animation = 'bounce 1s infinite alternate';
+                }, 10);
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>BMI Calculator</h3>
+            <p>Helping you understand and maintain a healthy weight through BMI tracking and personalized health recommendations.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculator.html">BMI Calculator</a></li>
+                <li><a href="health-tips.html">Health Tips</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="fitness.html">Fitness Guide</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="download.html">Download App</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2025 BMI Calculator. All rights reserved.
+    </div>
+</footer>
